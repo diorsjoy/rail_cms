@@ -5,6 +5,7 @@ import "./App.css";
 
 export const SignInPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  <title>Rail CMS | Sign In</title>;
 
   return (
     <Form
