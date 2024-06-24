@@ -1,26 +1,25 @@
 import {
+  LoginOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
+  ProfileOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu } from "antd";
 import useNavbar from "../hooks/useNavbar.ts";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import "./NavbarElements.css"; // Import the CSS file
 
 const { Header, Sider, Content } = Layout;
 
 const NavbarElements = () => {
   const { collapsed, toggleCollapse } = useNavbar();
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <Layout>
+    <Layout style={{ minHeight: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
@@ -37,45 +36,28 @@ const NavbarElements = () => {
               label: "Home",
             },
             {
-              key: "/something",
-              icon: <VideoCameraOutlined />,
-              label: "Something",
+              key: "/sign-up",
+              icon: <ProfileOutlined />,
+              label: "Sign-up",
             },
             {
               key: "/sign-in",
-              icon: <UploadOutlined />,
-              label: "sign-in",
+              icon: <LoginOutlined />,
+              label: "Sign-In",
             },
           ]}
         />
       </Sider>
       <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        >
+        <Header className="site-layout-header">
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={toggleCollapse}
-            style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
+            className="header-button"
           />
         </Header>
-        <Content
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}
-        >
+        <Content className="site-layout-content">
           <Outlet />
         </Content>
       </Layout>
