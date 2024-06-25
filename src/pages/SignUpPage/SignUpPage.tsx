@@ -1,42 +1,19 @@
 import { Button, Col, Form, Input, Row } from "antd";
+import { Link } from "react-router-dom";
+import { api } from "../../api";
+import { useTitle } from "../../hooks/useTitle";
 import styles from "./SignUpPage.module.css";
-import { useTitle } from "../hooks/useTitle";
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
 const SignUpPage = () => {
   const [form] = Form.useForm();
   useTitle("Sign Up");
   const onFinish = (values: unknown) => {
-    console.log("Received values of form: ", values);
+    api.post("/Account/my/register", values).then(() => {});
   };
 
   return (
     <div className={styles.formContainer}>
       <Form
-        {...formItemLayout}
         form={form}
         name="register"
         className={styles.registerForm}
@@ -158,10 +135,17 @@ const SignUpPage = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Register
           </Button>
+        </Form.Item>
+        <Form.Item>
+          <Link to="/sign-in">
+            <Button type="primary" htmlType="button">
+              Sign In
+            </Button>
+          </Link>
         </Form.Item>
       </Form>
     </div>

@@ -1,14 +1,17 @@
 import {
   LoginOutlined,
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ProfileOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu } from "antd";
-import useNavbar from "../hooks/useNavbar.ts";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import "./NavbarElements.css"; // Import the CSS file
+import useNavbar from "../hooks/useNavbar.ts";
+import "./NavbarElements.css";
+import { accessTokenService } from "../lib/accessTokenService.ts";
+import { api } from "../api/axios.ts";
 
 const { Header, Sider, Content } = Layout;
 
@@ -17,6 +20,29 @@ const NavbarElements = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleLogout = () => {
+    api
+      .post(
+        "/Account",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessTokenService.get()}`,
+          },
+        }
+      )
+      .then((data) => {
+        console.log("data", data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+
+    accessTokenService.remove();
+
+    navigate("/sign-in");
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -56,7 +82,16 @@ const NavbarElements = () => {
             onClick={toggleCollapse}
             className="header-button"
           />
+          <Button
+            type="text"
+            icon={<LogoutOutlined />}
+            style={{ marginLeft: "auto" }}
+            onClick={handleLogout}
+          >
+            Sign Out
+          </Button>
         </Header>
+
         <Content className="site-layout-content">
           <Outlet />
         </Content>

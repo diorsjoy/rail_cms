@@ -1,8 +1,12 @@
-import { Button } from "../Button";
 import { useTitle } from "../hooks";
 
 export const HomePage = () => {
   useTitle("Home");
-
-  return <Button />;
+  return (
+    <div>
+      <h1>Home Page</h1>
+    </div>
+  );
 };
+
+export default HomePage;
