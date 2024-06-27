@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { api } from "../../api";
 import { useTitle } from "../../hooks/useTitle";
 import styles from "./SignUpPage.module.css";
+import { useTranslation } from "react-i18next";
 
 const SignUpPage = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   useTitle("Sign Up");
   const onFinish = (values: unknown) => {
@@ -135,18 +137,24 @@ const SignUpPage = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Register
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Link to="/sign-in">
-            <Button type="primary" htmlType="button">
-              Sign In
-            </Button>
-          </Link>
-        </Form.Item>
+        <Row gutter={8}>
+          <Col>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                {t("Register")}
+              </Button>
+            </Form.Item>
+          </Col>
+          <Col>
+            <Form.Item>
+              <Link to="/sign-in">
+                <Button type="link" htmlType="button">
+                  {t("Sign In")}
+                </Button>
+              </Link>
+            </Form.Item>
+          </Col>
+        </Row>
       </Form>
     </div>
   );

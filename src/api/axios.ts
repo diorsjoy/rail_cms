@@ -1,5 +1,6 @@
 import { notification } from "antd";
 import axios from "axios";
+import { accessTokenService } from "../lib";
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
@@ -16,6 +17,10 @@ api.interceptors.response.use(
       });
     }
 
+    if (response.data.title === "ACCESS_DENIED") {
+      window.location.href = "/sign-in";
+    }
+
     return response;
   },
   function (error) {
@@ -26,7 +31,12 @@ api.interceptors.response.use(
           description: error.message,
         });
       }
-
+      if (error.response && error.response.status === 401) {
+        notification.error({
+          message: error.code,
+          description: error.message,
+        });
+      }
       if (error.code === "ERR_NETWORK") {
         notification.error({
           message: error.code,
@@ -43,51 +53,17 @@ api.interceptors.response.use(
   }
 );
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token-info");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+api.interceptors.request.use(
+  function (config) {
+    const token = accessTokenService.get();
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
   }
-
-  return config;
-});
-
-// api.interceptors.request.use(
-//   function (config) {
-//     return config;
-//   },
-//   function (error) {
-//     return Promise.reject(error);
-//   }
-// );
-
-// api.interceptors.response.use(
-//   function (response) {
-//     if (response.data.code === "ERROR") {
-//       notification.error({
-//         message: response.data.title,
-//         description: response.data.text,
-//       });
-//       return Promise.reject(response);
-//     } else {
-//       notification.success({
-//         message: response.data.title,
-//         description: response.data.text,
-//       });
-//     }
-//     return response;
-//   },
-//   function (error) {
-//     if (axios.isAxiosError(error)) {
-//       notification.error({
-//         message: error.response?.status,
-//         description: error.response?.data?.text,
-//       });
-//     } else {
-//       notification.error({
-//         message: `${error.message}`,
-//       });
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+);

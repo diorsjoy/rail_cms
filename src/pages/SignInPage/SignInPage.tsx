@@ -1,39 +1,40 @@
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Spin } from "antd";
 import { useState } from "react";
+import { Button, Checkbox, Col, Form, Input, Row, Spin } from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { api } from "../../api";
 import { useTitle } from "../../hooks/useTitle";
 import styles from "./SignInPage.module.css";
 import { accessTokenService } from "../../lib";
+import LanguageSelector from "../../components/LanguageSelector";
 
 export const SignInPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  function onFinish(values: unknown) {
+  const onFinish = (values: unknown) => {
     setIsLoading(true);
     api
       .post("/Account/login", values)
       .then((res) => {
         if (res.data.code === "SUCCESS") {
           accessTokenService.set(res.data.data);
-        }
-
-        if (res.data.code === "SUCCESS") {
           navigate("/");
         }
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }
+  };
 
   const [passwordVisible, setPasswordVisible] = useState(false);
-  useTitle("Sign In");
+  useTitle(t("Sign In"));
 
   return (
     <div className={styles.formContainer}>
+      <LanguageSelector />
       <Spin spinning={isLoading}>
         <Form
           name="normal_login"
@@ -44,18 +45,20 @@ export const SignInPage = () => {
         >
           <Form.Item
             name="login"
-            label="Email"
+            label={t("Email")}
             rules={[
-              { required: true, message: "Please input your email!" },
-              { type: "email", message: "The input is not valid E-mail!" },
+              { required: true, message: t("Please input your email!") },
+              { type: "email", message: t("The input is not valid E-mail!") },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="password"
-            label="Password"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            label={t("Password")}
+            rules={[
+              { required: true, message: t("Please input your password!") },
+            ]}
           >
             <Input.Password
               type={passwordVisible ? "text" : "password"}
@@ -67,28 +70,34 @@ export const SignInPage = () => {
           </Form.Item>
           <Form.Item>
             <Form.Item name="savePassword" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox>{t("Remember me")}</Checkbox>
             </Form.Item>
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit
+              {t("Submit")}
             </Button>
           </Form.Item>
-          <Form.Item>
-            <Link to="/sign-up">
-              <Button type="link" htmlType="button">
-                Sign Up
-              </Button>
-            </Link>
-          </Form.Item>
-          <Form.Item>
-            <Link to="/forgot-password">
-              <Button type="link" htmlType="button">
-                Forgot password?
-              </Button>
-            </Link>
-          </Form.Item>
+          <Row gutter={8}>
+            <Col>
+              <Form.Item>
+                <Link to="/sign-up">
+                  <Button type="link" htmlType="button">
+                    {t("Sign Up")}
+                  </Button>
+                </Link>
+              </Form.Item>
+            </Col>
+            <Col>
+              <Form.Item>
+                <Link to="/forgot-password">
+                  <Button type="link" htmlType="button">
+                    {t("Forgot password?")}
+                  </Button>
+                </Link>
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </Spin>
     </div>

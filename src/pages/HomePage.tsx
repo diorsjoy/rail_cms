@@ -1,10 +1,13 @@
+import { useTranslation } from "react-i18next";
 import { useTitle } from "../hooks";
 
 export const HomePage = () => {
   useTitle("Home");
+  const { t } = useTranslation();
+
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div className="container">
+      <span>{t("description.line1")}</span>
     </div>
   );
 };

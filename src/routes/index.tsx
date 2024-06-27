@@ -5,6 +5,7 @@ import { ErrorPage } from "../pages/ErrorPage";
 import NavbarElements from "../components/NavbarElements";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import { ForgotPassword } from "../pages/SignInPage/ForgotPassword";
+import { AboutPage } from "../pages/AboutPage/AboutPage";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         path: "*",
         element: <ErrorPage />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
       },
     ],
   },

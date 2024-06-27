@@ -6,18 +6,20 @@ import {
   ProfileOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu } from "antd";
+import { Button, Layout, Menu, Space } from "antd";
+import { useTranslation } from "react-i18next";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import useNavbar from "../hooks/useNavbar.ts";
-import "./NavbarElements.css";
-import { accessTokenService } from "../lib/accessTokenService.ts";
 import { api } from "../api/axios.ts";
-
+import useNavbar from "../hooks/useNavbar.ts";
+import { accessTokenService } from "../lib/accessTokenService.ts";
+import LanguageSelector from "./LanguageSelector.tsx";
+import "./NavbarElements.css";
+import { AuthProvider } from "../providers/AuthProvider.tsx";
 const { Header, Sider, Content } = Layout;
 
 const NavbarElements = () => {
   const { collapsed, toggleCollapse } = useNavbar();
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -45,58 +47,72 @@ const NavbarElements = () => {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={[location.pathname]}
-          onClick={(item) => {
-            navigate(item.key);
-          }}
-          items={[
-            {
-              key: "/",
-              icon: <UserOutlined />,
-              label: "Home",
-            },
-            {
-              key: "/sign-up",
-              icon: <ProfileOutlined />,
-              label: "Sign-up",
-            },
-            {
-              key: "/sign-in",
-              icon: <LoginOutlined />,
-              label: "Sign-In",
-            },
-          ]}
-        />
-      </Sider>
-      <Layout>
-        <Header className="site-layout-header">
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={toggleCollapse}
-            className="header-button"
+    <AuthProvider>
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sider trigger={null} collapsible collapsed={collapsed}>
+          <div className="demo-logo-vertical" />
+          <Menu
+            theme="dark"
+            mode="inline"
+            defaultSelectedKeys={[location.pathname]}
+            onClick={(item) => {
+              navigate(item.key);
+            }}
+            items={[
+              {
+                key: "/",
+                icon: <UserOutlined />,
+                label: t("Home"),
+              },
+              {
+                key: "/sign-up",
+                icon: <ProfileOutlined />,
+                label: t("Sign-up"),
+              },
+              {
+                key: "/sign-in",
+                icon: <LoginOutlined />,
+                label: t("Sign-In"),
+              },
+              {
+                key: "/about",
+                icon: <UserOutlined />,
+                label: t("About"),
+              },
+            ]}
           />
-          <Button
-            type="text"
-            icon={<LogoutOutlined />}
-            style={{ marginLeft: "auto" }}
-            onClick={handleLogout}
-          >
-            Sign Out
-          </Button>
-        </Header>
+        </Sider>
+        <Layout>
+          <Header className="site-layout-header">
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={toggleCollapse}
+              className="header-button"
+            />
+            <Space
+              style={{
+                marginLeft: "auto",
+              }}
+            >
+              <LanguageSelector />
+              <Button
+                type="text"
+                icon={<LogoutOutlined />}
+                style={{ marginLeft: "auto" }}
+                onClick={handleLogout}
+              >
+                {t("Sign Out")}
+              </Button>
+            </Space>
+          </Header>
 
-        <Content className="site-layout-content">
-          <Outlet />
-        </Content>
+          <Content className="site-layout-content">
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </AuthProvider>
   );
 };
 

@@ -1,0 +1,17 @@
+{
+  "greeting": "Hello, Welcome!",
+  "description": {
+    "line1": "Hello, Welcome!",
+    "line2": "Testing 123"
+  },
+  "Sign In": "Sign In",
+  "Email": "Email",
+  "Please input your email!": "Please input your email!",
+  "The input is not valid E-mail!": "The input is not valid E-mail!",
+  "Password": "Password",
+  "Please input your password!": "Please input your password!",
+  "Remember me": "Remember me",
+  "Submit": "Submit",
+  "Sign Up": "Sign Up",
+  "Forgot password?": "Forgot password?"
+}
