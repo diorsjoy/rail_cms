@@ -6,6 +6,7 @@ import NavbarElements from "../components/NavbarElements";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import { ForgotPassword } from "../pages/SignInPage/ForgotPassword";
 import { AboutPage } from "../pages/AboutPage/AboutPage";
+import { FaqPage } from "../pages/Faq/FaqPage";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutPage />,
+      },
+      {
+        path: "/faq",
+        element: <FaqPage />,
       },
     ],
   },

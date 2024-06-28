@@ -79,6 +79,11 @@ const NavbarElements = () => {
                 icon: <UserOutlined />,
                 label: t("About"),
               },
+              {
+                key: "/faq",
+                icon: <UserOutlined />,
+                label: t("FAQ"),
+              },
             ]}
           />
         </Sider>
