@@ -37,6 +37,7 @@ export const SignInPage = () => {
       <LanguageSelector />
       <Spin spinning={isLoading}>
         <Form
+          layout="vertical"
           name="normal_login"
           className={styles.loginForm}
           initialValues={{ remember: true }}

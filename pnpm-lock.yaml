@@ -11,18 +11,33 @@ importers:
       '@ant-design/icons':
         specifier: ^5.3.7
         version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-query':
+        specifier: ^5.49.2
+        version: 5.49.2(react@18.3.1)
       antd:
         specifier: ^5.18.3
         version: 5.18.3(moment@2.22.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      api:
+        specifier: link:@/shared/api
+        version: link:@/shared/api
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
       axios:
         specifier: ^1.7.2
         version: 1.7.2
+      components:
+        specifier: link:@/components
+        version: link:@/components
+      constants:
+        specifier: link:@/shared/constants
+        version: link:@/shared/constants
       core-js:
         specifier: ^3.37.1
         version: 3.37.1
+      hooks:
+        specifier: link:@/shared/hooks
+        version: link:@/shared/hooks
       i18next:
         specifier: ^23.11.5
         version: 23.11.5
@@ -56,6 +71,15 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.4)
+      types:
+        specifier: link:@/shared/types
+        version: link:@/shared/types
+      ui-ki:
+        specifier: link:@/shared/ui-ki
+        version: link:@/shared/ui-ki
+      ui-kit:
+        specifier: link:@/shared/ui-kit
+        version: link:@/shared/ui-kit
     devDependencies:
       '@types/react':
         specifier: ^18.3.3
@@ -583,6 +607,14 @@ packages:
 
   '@swc/types@0.1.8':
     resolution: {integrity: sha512-RNFA3+7OJFNYY78x0FYwi1Ow+iF1eF5WvmfY1nXPOEH4R2p/D4Cr1vzje7dNAI2aLFqpv8Wyz4oKSWqIZArpQA==}
+
+  '@tanstack/query-core@5.49.1':
+    resolution: {integrity: sha512-JnC9ndmD1KKS01Rt/ovRUB1tmwO7zkyXAyIxN9mznuJrcNtOrkmOnQqdJF2ib9oHzc2VxHomnEG7xyfo54Npkw==}
+
+  '@tanstack/react-query@5.49.2':
+    resolution: {integrity: sha512-6rfwXDK9BvmHISbNFuGd+wY3P44lyW7lWiA9vIFGT/T0P9aHD1VkjTvcM4SDAIbAQ9ygEZZoLt7dlU1o3NjMVA==}
+    peerDependencies:
+      react: ^18.0.0
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -3015,6 +3047,13 @@ snapshots:
   '@swc/types@0.1.8':
     dependencies:
       '@swc/counter': 0.1.3
+
+  '@tanstack/query-core@5.49.1': {}
+
+  '@tanstack/react-query@5.49.2(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.49.1
+      react: 18.3.1
 
   '@types/estree@1.0.5': {}
 

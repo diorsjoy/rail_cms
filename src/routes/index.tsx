@@ -1,19 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
-import { SignInPage } from "../pages";
 import HomePage from "../pages/HomePage";
 import { ErrorPage } from "../pages/ErrorPage";
 import NavbarElements from "../components/NavbarElements";
-import SignUpPage from "../pages/SignUpPage/SignUpPage";
-import { ForgotPassword } from "../pages/SignInPage/ForgotPassword";
 import { AboutPage } from "../pages/AboutPage/AboutPage";
-import { FaqPage } from "../pages/Faq/FaqPage";
+import FaqDetailsPage from "../pages/FaqItemPage/FaqDetailsPage";
+import FaqPage from "../pages/FaqPage/FaqPage";
+import NewsPage from "../pages/NewsPage/NewsPage";
 
 export const router = createBrowserRouter([
   {
     element: <NavbarElements />,
     children: [
       {
-        path: "/",
+        path: "/blog",
         element: <HomePage />,
       },
       {
@@ -27,19 +26,21 @@ export const router = createBrowserRouter([
       {
         path: "/faq",
         element: <FaqPage />,
+        children: [
+          {
+            path: ":id",
+            element: <FaqDetailsPage />,
+          },
+        ],
+      },
+      {
+        path: "/faq/add",
+        element: <FaqDetailsPage />,
+      },
+      {
+        path: "/news",
+        element: <NewsPage />,
       },
     ],
-  },
-  {
-    path: "/sign-up",
-    element: <SignUpPage />,
-  },
-  {
-    path: "/sign-in",
-    element: <SignInPage />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPassword />,
   },
 ]);

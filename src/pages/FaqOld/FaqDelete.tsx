@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { notification } from "antd";
+import { Button, notification } from "antd";
 import { api } from "../../api";
 
 interface FaqDeleteProps {
@@ -22,7 +23,7 @@ const FaqDelete: React.FC<FaqDeleteProps> = ({ faqId, onFaqDeleted }) => {
     }
   };
 
-  return <button onClick={handleDelete}>Delete</button>;
+  return <Button onClick={handleDelete}>Delete</Button>;
 };
 
 export default FaqDelete;

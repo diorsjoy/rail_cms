@@ -1,6 +1,8 @@
 import { notification } from "antd";
 import axios from "axios";
 import { accessTokenService } from "../lib";
+import { Faq, News } from "../types";
+
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
@@ -67,3 +69,28 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+export const fetchFaqs = () => api.get<Faq[]>("/Faqs");
+export const fetchFaqById = (id: number) => api.get<Faq>(`/Faqs/${id}`);
+export const createFaq = (faq: Omit<Faq, "id">) => api.post("/Faqs", faq);
+export const updateFaq = (id: number, faq: Omit<Faq, "id">) =>
+  api.put(`/Faqs/${id}`, faq);
+export const deleteFaq = (id: number) => api.delete(`/Faqs/${id}`);
+
+export const fetchNews = async () => {
+  const response = await api.get<{ data: News[] }>("/NewsArticles");
+  return response.data.data; // Adjusted to match the expected response format
+};
+export const fetchNewsById = (id: number) =>
+  api.get<News>(`/NewsArticles/${id}`);
+export const createNews = async (news: Omit<News, "id">) => {
+  const response = await api.post("/NewsArticles", news);
+  return response.data.data; // Return the ID of the newly created news
+};
+export const updateNews = (id: number, news: News) =>
+  api.put(`/NewsArticles/${id}`, news);
+export const deleteNews = (id: number) => api.delete(`/NewsArticles/${id}`);
+export const fetchNewsList = async () => {
+  const response = await api.get<{ data: News[] }>("/NewsArticles");
+  return response.data.data;
+};

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const useNavbar = () => {
-  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const toggleCollapse = () => {
     setCollapsed((prevCollapsed) => !prevCollapsed);

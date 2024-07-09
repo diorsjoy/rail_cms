@@ -1,10 +1,13 @@
 import {
+  HomeOutlined,
+  InboxOutlined,
   LoginOutlined,
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ProfileOutlined,
-  UserOutlined,
+  QuestionOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, Space } from "antd";
 import { useTranslation } from "react-i18next";
@@ -61,7 +64,7 @@ const NavbarElements = () => {
             items={[
               {
                 key: "/",
-                icon: <UserOutlined />,
+                icon: <HomeOutlined />,
                 label: t("Home"),
               },
               {
@@ -76,13 +79,18 @@ const NavbarElements = () => {
               },
               {
                 key: "/about",
-                icon: <UserOutlined />,
+                icon: <TeamOutlined />,
                 label: t("About"),
               },
               {
                 key: "/faq",
-                icon: <UserOutlined />,
+                icon: <QuestionOutlined />,
                 label: t("FAQ"),
+              },
+              {
+                key: "/news",
+                icon: <InboxOutlined />,
+                label: t("News"),
               },
             ]}
           />
